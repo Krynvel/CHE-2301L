@@ -13,13 +13,9 @@ float grnLevel=0;
 float bluLevel=0;
 
 void setup() {
-setRgb(redLevel, grnLevel, bluLevel);
 pinMode(joyButton, INPUT); // joy-stick button is INPUT
 pinMode(joyX, INPUT); // joy-stick x-direction is INPUT
 pinMode(joyY, INPUT); // joy-stick y-direction is INPUT
-pinMode(redPin, OUTPUT);
-pinMode(bluPin, OUTPUT);
-pinMode(grnPin, OUTPUT);
 Serial.begin(9600); // start serial communications
 }
 
@@ -31,21 +27,6 @@ redLevel = getRedLevel(posX, posY); // find red level
 grnLevel = getGrnLevel(posX, posY); // find green level
 bluLevel = getBluLevel(posX,posY);
 setRgb(redLevel, grnLevel, bluLevel); //'setRGB' function to update colors
-if(isButtonOn) {
-delay(5000)
-Serial.print("\nSerial"); // display the values on Serial Monitor Window
-Serial.print("Button: ");
-if(isButtonOn) {
-Serial.print("ON"); }
-else {
-Serial.print("OFF"); }
-Serial.print("\n");
-Serial.print("X-axis: ");
-Serial.print(posX);
-Serial.print("\n");
-Serial.print("Y-axis: ");
-Serial.println(posY);
-delay(100);
 }
 
 void setRgb(float redLevel, float grnLevel, float bluLevel) {
