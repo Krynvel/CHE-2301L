@@ -27,6 +27,11 @@ redLevel = getRedLevel(posX, posY); // find red level
 grnLevel = getGrnLevel(posX, posY); // find green level
 bluLevel = getBluLevel(posX,posY);
 setRgb(redLevel, grnLevel, bluLevel); //'setRGB' function to update colors
+Serial.print("Pos X: ");
+Serial.print(posX);
+Serial.print('\n');
+Serial.print("Pos Y: ");
+Serial.print(posY);
 }
 
 void setRgb(float redLevel, float grnLevel, float bluLevel) {
@@ -70,11 +75,8 @@ else if(posX>=512 && posX<682){
 else if(posX >= 341 && posX < 682) {
 grnLevel = 0; // redLevel remains at 0 in this range
 }
-else if(posX >= 682 && posX < 853) {
-grnLevel = map(posX, 682, 852, 0, 255);/* redLevel linearly increases from 0 to 255 in this range */
-}
 else {
-grnLevel = 255; // redLevel remains at 255 in this range
+grnLevel = 0; // redLevel remains at 255 in this range
 }
 return map(posY, 1023, 0, 128, grnLevel); //Y-interpolation return grnLevel
 }
@@ -86,10 +88,10 @@ float getBluLevel(float posX, float posY){
   else if (posX>=341 && posX<512){
     bluLevel=map(posX,341, 511, 0, 255 );
   }
-  else if(posX>=512 && posX<653){
+  else if(posX>=512 && posX<853){
   bluLevel=255;
   }
-  else if (posX>=653 && posX<1023){
+  else if (posX>=853 && posX<=1023){
     bluLevel=map(posX,643,1022,255,0);
   }
   else{
