@@ -60,13 +60,19 @@ redLevel = 255; // redLevel remains at 255 in this range
 }
 return map(posY, 1023, 0, 128, redLevel); //y interpolation and return redLevel
 }
+
 // 'getGrnLevel' function
 float getGrnLevel(float posX, float posY) {
 float grnLevel = 0;
 if(posX < 171) {
 grnLevel = map(posX, 0, 170, 0, 255); //grnLevel linearly increases from 0 to 255 in this range
 }
-//INSERT your code here//
+if(posX>=171 && <512){
+grnLevel=255; //greenLevel at max brightness
+}
+else if(posX>=512 && <682){
+  grnLevel=map(posX, 512, 681, 255, 0)
+}
 else if(posX >= 341 && posX < 682) {
 grnLevel = 0; // redLevel remains at 0 in this range
 }
@@ -75,5 +81,25 @@ grnLevel = map(posX, 682, 852, 0, 255);/* redLevel linearly increases from 0 to 
 }
 else {
 grnLevel = 255; // redLevel remains at 255 in this range
+}
 return map(posY, 1023, 0, 128, grnLevel); //Y-interpolation return grnLevel
+}
+float getBluLevel(float posX, float posY){
+  float bluLevel=0;
+  if(posX<341){
+    bluLevel=0;
+    }
+  else if (posX>=341 && <512){
+    bluLevel=map(posX,341, 511, 0, 255 );
+  }
+  else if(posX>=512 && <653){
+  blueLevel=255;
+  }
+  else if (posX>=653 && <1023){
+    blueLevel=map(posX,643,1022,255,0);
+  }
+  else{
+    bluLevel=255;
+  }
+  returnmap(posY, 1023,0,128,bluLevel);
 }
