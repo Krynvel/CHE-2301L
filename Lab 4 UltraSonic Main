@@ -1,0 +1,65 @@
+const int pingPin = 7; // Arduino digital output pin
+
+const int echoPin = 8; // Arduino digital input pin
+
+long duration, inches, cm;
+
+void setup()
+
+{
+
+pinMode(pingPin, OUTPUT); // ping pin is connected to Arduino output
+
+pinMode(echoPin, INPUT); // echo pin
+
+Serial.begin(9600);
+
+}
+
+void loop()
+
+{
+digitalWrite(7, LOW);
+
+delayMicroseconds(2);
+
+digitalWrite(7, HIGH);
+
+delayMicroseconds(10);
+
+digitalWrite(7, LOW);
+
+duration=pulseIn(8, HIGH);
+
+duration=microsecondsToInches(duration);
+
+Serial.println(duration);
+}
+
+long microsecondsToInches(long microseconds) {
+
+// According to Parallax's datasheet for the PING))), there are 73.746
+
+// microseconds per inch (i.e., sound travels at 1130 feet per second).
+
+// The time returned by the function is for the distance travelled by the ping,
+
+// outbound and return, so we divide by 2
+
+// See: http://www.parallax.com/dl/docs/prod/acc/28015-PING-v1.3.pdf
+
+return microseconds / 74 / 2;
+
+}
+
+long microsecondsToCentimeters(long microseconds) {
+
+// The speed of sound is 340 m/s or 29 microseconds per centimeter.
+
+// The ping travels out and back, so to find the distance of the object we
+
+// take half of the distance travelled.
+
+return microseconds / 29 / 2;
+
+}
