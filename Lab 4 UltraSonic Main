@@ -45,12 +45,21 @@ digitalWrite(7, LOW);
 duration=pulseIn(8, HIGH);
 
 inches=microsecondsToInches(duration);
-  if(inches<10)
-  
-    digitalWrite(ledPin, HIGH);
-  
-  else
-  
+  while(inches<=10)
+  {
+digitalWrite(ledPin, HIGH);
+delayMicroseconds(2);
+
+digitalWrite(7, HIGH);
+
+delayMicroseconds(10);
+
+digitalWrite(7, LOW);
+
+duration=pulseIn(8, HIGH);
+
+inches=microsecondsToInches(duration);
+  }
     digitalWrite(ledPin,LOW);
   Serial.print("Distance: ");
  Serial.print(inches);
@@ -78,14 +87,23 @@ delay(15);                       // waits 15 ms for the servo to reach the posit
   duration=pulseIn(8, HIGH);
 
   inches=microsecondsToInches(duration);
-  if(inches<10)
-  
+  while(inches<=10)
+  {
 digitalWrite(ledPin, HIGH);
-  
-    else
-  
+delayMicroseconds(2);
+
+digitalWrite(7, HIGH);
+
+delayMicroseconds(10);
+
+digitalWrite(7, LOW);
+
+duration=pulseIn(8, HIGH);
+
+inches=microsecondsToInches(duration);
+  }
     digitalWrite(ledPin,LOW);
-  Serial.print("Distance: ");
+    Serial.print("Distance: ");
  Serial.print(inches);
  Serial.println(" in.");
  Serial.print("Angle: ");
