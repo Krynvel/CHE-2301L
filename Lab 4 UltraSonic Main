@@ -2,7 +2,7 @@ const int pingPin = 7; // Arduino digital output pin
 
 const int echoPin = 8; // Arduino digital input pin
 
-const int ledPin = 12; // LED pin
+const int ledPin = 6; // LED pin
 
 long duration, inches, cm;
 
@@ -34,21 +34,30 @@ void loop()
 for (pos = 0; pos <= 180; pos += 1) { // goes from 0 degrees to 180 degrees
 // in steps of 1 degree
 myservo.write(pos);              // tell servo to go to position in variable 'pos'
-  delayMicroseconds(2);
+delayMicroseconds(2);
 
-  digitalWrite(7, HIGH);
+digitalWrite(7, HIGH);
 
-  delayMicroseconds(10);
+delayMicroseconds(10);
 
-  digitalWrite(7, LOW);
+digitalWrite(7, LOW);
 
-  duration=pulseIn(8, HIGH);
+duration=pulseIn(8, HIGH);
 
-  duration=microsecondsToInches(duration);
-  if(duration<10)
-  {
-digitalWrite(ledPin, HIGH);
-  }
+inches=microsecondsToInches(duration);
+  if(inches<10)
+  
+    digitalWrite(ledPin, HIGH);
+  
+  else
+  
+    digitalWrite(ledPin,LOW);
+  Serial.print("Distance: ");
+ Serial.print(inches);
+ Serial.println(" in.");
+ Serial.print("Angle: ");
+ Serial.print(pos);
+ Serial.println(" deg");
 delay(15);                       // waits 15 ms for the servo to reach the position
 
 }
@@ -68,12 +77,20 @@ delay(15);                       // waits 15 ms for the servo to reach the posit
 
   duration=pulseIn(8, HIGH);
 
-  duration=microsecondsToInches(duration);
-  if(duration<10)
-  {
+  inches=microsecondsToInches(duration);
+  if(inches<10)
+  
 digitalWrite(ledPin, HIGH);
-  }
-    Serial.println(duration);
+  
+    else
+  
+    digitalWrite(ledPin,LOW);
+  Serial.print("Distance: ");
+ Serial.print(inches);
+ Serial.println(" in.");
+ Serial.print("Angle: ");
+ Serial.print(pos);
+ Serial.println(" deg");
     delay(15);                       // waits 15 ms for the servo to reach the position
   }
 
