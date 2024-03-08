@@ -59,6 +59,12 @@ digitalWrite(7, LOW);
 duration=pulseIn(8, HIGH);
 
 inches=microsecondsToInches(duration);
+    Serial.print("Distance: ");
+ Serial.print(inches);
+ Serial.println(" in.");
+ Serial.print("Angle: ");
+ Serial.print(pos);
+ Serial.println(" deg");
   }
     digitalWrite(ledPin,LOW);
   Serial.print("Distance: ");
@@ -101,6 +107,12 @@ digitalWrite(7, LOW);
 duration=pulseIn(8, HIGH);
 
 inches=microsecondsToInches(duration);
+    Serial.print("Distance: ");
+ Serial.print(inches);
+ Serial.println(" in.");
+ Serial.print("Angle: ");
+ Serial.print(pos);
+ Serial.println(" deg");
   }
     digitalWrite(ledPin,LOW);
     Serial.print("Distance: ");
