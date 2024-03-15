@@ -1,12 +1,17 @@
-#include <LiquidCrystal.h>
+#include <LiquidCrystal.h> // include the LCD library
 
-LiquidCrystal lcd(10, 9, 8, 7, 6 , 5);
-
+// initialize the library with the numbers of the interface pins
 byte temperature = 19;
 byte humidity = 45;
+
+LiquidCrystal lcd(10, 9, 8, 7, 6 , 5);//Parameters: (rs, enable(E), d4, d5, d6, d7)
+
 void setup() {
 
+// set up the LCD's number of columns and rows:
+
 lcd.begin(16, 2);
+
 
 
 }
@@ -17,13 +22,12 @@ void loop() {
 
 lcd.setCursor(0, 0);
 
-lcd.print ("Humd:");
-lcd.setCursor(0,8);
-lcd.print (humidity);
-
-lcd.setCursor(1,0);
-lcd.print ("Temp:");
-lcd.setCursor(1,8);
-lcd.print (temperature);
+lcd.print ("Temp: ");
+lcd.print(temperature);
+lcd.print(" deg C");
+lcd.setCursor(0, 1);
+lcd.print("Humid: ");
+lcd.print(humidity);
+lcd.print("%");
 
 }
