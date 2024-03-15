@@ -1,19 +1,27 @@
+#include <LiquidCrystal.h> // include the LCD library
 #include <SimpleDHT.h>
+// initialize the library with the numbers of the interface pins
+byte temperature = 19;
+byte humidity = 45;
+int pinDHT11 = 11;
+SimpleDHT11 dht11(pinDHT11);
 
-// for DHT22,
-//      VCC: 5V or 3V
-//      GND: GND
-//      DATA: 2
-int pinDHT22 = 11;
-SimpleDHT22 dht22(pinDHT22);
+LiquidCrystal lcd(10, 9, 8, 7, 6 , 5);//Parameters: (rs, enable(E), d4, d5, d6, d7)
 
 void setup() {
-  Serial.begin(9600);
+
+// set up the LCD's number of columns and rows:
+
+lcd.begin(16, 2);
+
+Serial.begin(9600);
 }
 
 void loop() {
-  // start working...
-  Serial.println("=================================");
+
+// set the cursor to column 0, line 0
+
+Serial.println("=================================");
   Serial.println("Sample DHT22 with RAW bits...");
   
   // read with raw sample data.
@@ -23,8 +31,8 @@ void loop() {
   float humidity = 0;
   byte data[40] = {0};
   int err = SimpleDHTErrSuccess;
-  if ((err = dht22.read2(&temperature, &humidity, data)) != SimpleDHTErrSuccess) {
-    Serial.print("Read DHT22 failed, err="); Serial.print(SimpleDHTErrCode(err));
+  if ((err = dht11.read2(&temperature, &humidity, data)) != SimpleDHTErrSuccess) {
+    Serial.print("Read DHT11 failed, err="); Serial.print(SimpleDHTErrCode(err));
     Serial.print(","); Serial.println(SimpleDHTErrDuration(err)); delay(2000);
     return;
   }
@@ -40,8 +48,17 @@ void loop() {
   
   Serial.print("Sample OK: ");
   Serial.print((float)temperature); Serial.print(" *C, ");
-  Serial.print((float)humidity); Serial.println(" RH%");
+  Serial.print((float)humidity); Serial.println(" H%");
   
+  lcd.setCursor(0, 0);
+
+lcd.print ("Temp: ");
+lcd.print((float)temperature);
+lcd.print(" *C");
+lcd.setCursor(0, 1);
+lcd.print("Humid: ");
+lcd.print(humidity);
+lcd.print("%");
   // DHT22 sampling rate is 0.5HZ.
-  delay(2500);
+  delay(1500);
 }
