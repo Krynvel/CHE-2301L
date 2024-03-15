@@ -1,1 +1,29 @@
+#include <LiquidCrystal.h>
 
+LiquidCrystal lcd(10, 9, 8, 7, 6 , 5);
+
+byte temperature = 19;
+byte humidity = 45;
+void setup() {
+
+lcd.begin(16, 2);
+
+
+}
+
+void loop() {
+
+// set the cursor to column 0, line 0
+
+lcd.setCursor(0, 0);
+
+lcd.print ("Humd:");
+lcd.setCursor(0,8);
+lcd.print (humidity);
+
+lcd.setCursor(1,0);
+lcd.print ("Temp:");
+lcd.setCursor(1,8);
+lcd.print (temperature);
+
+}
