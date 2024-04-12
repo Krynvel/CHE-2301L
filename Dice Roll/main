@@ -1,1 +1,106 @@
 
+int dataPin = 7; // 14 SER on 74HC595
+
+int clockPin = 8; // 11 SRCLK on 74HC595
+
+int latchPin = 6; // 12 RCLK on 74HC595
+
+int tDelay = 500; //Time delay
+
+byte leds = 0; // LED value equivalent for the number to displayed
+
+void setup() {
+
+pinMode(latchPin, OUTPUT);
+
+pinMode(dataPin, OUTPUT);
+
+pinMode(clockPin, OUTPUT);
+
+}
+
+void loop() {
+
+for (int i = 1; i < 7; i++) {
+
+leds = 0; // clear LED segments byte:00000000
+
+sevenDisplay(i);
+
+delay(tDelay);
+
+}
+
+}
+
+void sevenDisplay(int num) { //byte: 01100000
+
+if (num == 1) {
+
+bitSet(leds, 5); // C // set the 5th bit of the byte
+
+bitSet(leds, 6); // B
+
+}
+
+if (num==2){
+  bitSet(leds, 7);
+  bitSet(leds, 6);
+  bitSet(leds, 4);
+  bitSet(leds, 3);
+  bitSet(leds, 1);
+}
+if(num==3)
+{
+  bitSet(leds, 7);
+  bitSet(leds, 6);
+  bitSet(leds, 5);
+  bitSet(leds, 4);
+  bitSet(leds, 1);
+}
+if(num==4){
+bitSet(leds, 6);
+bitSet(leds, 5);
+bitSet(leds, 1);
+bitSet(leds, 2);
+}
+if(num==5){
+  bitSet(leds, 7);
+  bitSet(leds, 4);
+  bitSet(leds, 2);
+  bitSet(leds, 1);
+  bitSet(leds, 5);
+}
+// missing code to be completed for num = 2,3,4,5
+
+if (num == 6) { //byte: 10111110
+
+bitSet(leds, 7); // A
+
+bitSet(leds, 5); // C
+
+bitSet(leds, 4); // D
+
+bitSet(leds, 3); // E
+
+bitSet(leds, 2); // F
+
+bitSet(leds, 2); // G
+
+}
+
+updateShiftRegister();
+
+}
+
+void updateShiftRegister() {
+
+digitalWrite(latchPin, LOW);
+
+// this built-in function sends out a byte value, bit by bit
+
+shiftOut(dataPin, clockPin, LSBFIRST, leds);
+
+digitalWrite(latchPin, HIGH);
+
+}
