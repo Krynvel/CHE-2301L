@@ -85,7 +85,7 @@ bitSet(leds, 3); // E
 
 bitSet(leds, 2); // F
 
-bitSet(leds, 2); // G
+bitSet(leds, 1); // G
 
 }
 
