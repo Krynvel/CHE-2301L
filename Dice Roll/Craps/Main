@@ -42,7 +42,7 @@ B11111110, //8
 B11110110, //9
 
 B11111100, //0
-B10011100 //c}; 
+B10011100}; //c 
 
 //byte combinations for each number 0-9
 
@@ -66,13 +66,13 @@ cathode_high();
 
 void loop() {
 
-digits[0] = 12; //far left digit
+digits[0] = 13; //far left digit
 
-digits[1] = 12;
+digits[1] = 13;
 
-digits[2] = 12;
+digits[2] = 13;
 
-digits[3] = 12; //far right digit
+digits[3] = 13; //far right digit
 
 display_number();
 
