@@ -66,13 +66,13 @@ cathode_high();
 
 void loop() {
 
-digits[0] = 13; //far left digit
+digits[0] = 11; //far left digit
 
-digits[1] = 13;
+digits[1] = 11;
 
-digits[2] = 13;
+digits[2] = 11;
 
-digits[3] = 13; //far right digit
+digits[3] = 11; //far right digit
 
 display_number();
 
