@@ -1,0 +1,112 @@
+int dataPin = 7; // 14 SER on 74HC595
+
+int clockPin = 8; // 11 SRCLK on 74HC595
+
+int latchPin = 6; // 12 RCLK on 74HC595
+
+int D_1= 9;
+int D_2=10;
+int D_3=11;
+int D_4=12;
+
+// add variable declarations for the Common cathode pins of the 4 digits using the variable names D_1,D_2,D_3,and D_4
+
+int count = 0; // locate of the current display
+
+int del = 100; // delay must cycle through every 100 ms to appear to
+
+//continuously on
+
+int digits[4]; //digit array
+
+int CAS[4] = {D_1, D_2, D_3, D_4}; //array of Common Cathode pins
+
+byte numbers[11] = {B00000000, //clear digital
+
+B01100000, //1
+
+B11011010, //2
+
+B11110010, //3
+
+B01100110, //4
+
+B10110110, //5
+
+B10111110, //6
+
+B11100000, //7
+
+B11111110, //8
+
+B11110110, //9
+
+B11111100}; //0
+
+//byte combinations for each number 0-9
+
+void setup() {
+
+//add the pinMode declarations necessary for Common cathodes of 4 digits
+pinMode(D_1, OUTPUT);
+pinMode(D_2, OUTPUT);
+pinMode(D_3, OUTPUT);
+pinMode(D_4, OUTPUT);
+
+pinMode(clockPin, OUTPUT);
+
+pinMode(latchPin, OUTPUT);
+
+pinMode(dataPin, OUTPUT);
+
+cathode_high();
+
+}
+
+void loop() {
+
+digits[0] = 1; //far left digit
+
+digits[1] = 2;
+
+digits[2] = 3;
+
+digits[3] = 4; //far right digit
+
+display_number();
+
+delay(del);
+
+}
+
+void display_number() { //Subfunction
+
+cathode_high(); //black screen
+
+digitalWrite(latchPin, LOW); //put the shift register to read
+
+shiftOut(dataPin, clockPin, LSBFIRST, numbers[digits[count]]);//send data
+
+digitalWrite(CAS[count], LOW); //turn on the relevant digit
+
+digitalWrite(latchPin, HIGH); //put the shift register to write mode
+
+count++; //count-up the digit
+
+if (count == 4) { // keep the count between 0-3
+
+count = 0; //reset count value
+
+}
+
+}
+
+void cathode_high() { //turn off all 4 digits
+
+digitalWrite(D_1, HIGH);
+digitalWrite(D_2, HIGH);
+digitalWrite(D_3, HIGH);
+digitalWrite(D_4, HIGH);
+// add the code to Turn off the other 3 digits
+
+}
