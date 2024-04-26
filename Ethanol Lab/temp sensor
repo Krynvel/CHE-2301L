@@ -1,1 +1,37 @@
+LiquidCrystal lcd(10, 9, 8, 7, 6 , 5);
+int AnalogPin0 = 0;
+int AnalogPin1 = 1;
+int AnalogPin2 = 2;
+float analogValue_0;
+float voltage_0;
+float analogValue_1;
+
+float voltage_1;
+float analogValue_2;
+float voltage_2;
+void setup()
+{
+lcd.begin(16, 2);
+pinMode(A0,INPUT);
+pinMode(A1, INPUT);
+pinMode(A2, INPUT); }
+void loop() {
+analogValue_0 = analogRead(AnalogPin0);
+voltage_0 = (analogValue_0/1023)*(5.0);
+lcd.setCursor(0, 0);
+lcd.print("Vsens ");
+lcd.print(voltage_0);
+//ADD A CODE segment for reading A2 and displaying voltage_2 in second row as VT2
+
+analogValue_1 = analogRead(AnalogPin1);
+voltage_1 = (analogValue_1/1023)*(5.0);
+lcd.setCursor(0, 1);
+lcd.print("VT1 ");
+lcd.print(voltage_1);
+
+analogValue_2 = analogRead(AnalogPin2);
+voltage_2 = (analogValue_2/1023)*(5.0);
+lcd.setCursor(8,1);
+lcd.print("VT2 ");
+lcd.print(voltage_2);}
 
