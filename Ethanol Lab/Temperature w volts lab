@@ -30,8 +30,8 @@ lcd.setCursor(0, 1);
 lcd.print("VT1 ");
 lcd.print(voltage_1);
 
-analogValue_2 = analogRead(AnalogPin2);
-voltage_2 = (analogValue_2/1023)*(5.0);
-lcd.setCursor(8,1);
-lcd.print("VT2 ");
-lcd.print(voltage_2);}
+//analogValue_2 = analogRead(AnalogPin2);
+//voltage_2 = (analogValue_2/1023)*(5.0);
+//lcd.setCursor(8,1);
+//lcd.print("VT2 ");
+//lcd.print(voltage_2);}
