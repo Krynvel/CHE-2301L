@@ -1,0 +1,123 @@
+#include <LiquidCrystal.h> // include the LCD library
+
+// initialize the library with the numbers of the interface pins
+const int pingPin = 12; // Arduino digital output pin
+
+long duration =0;
+long inches=0;
+long cm=0;
+int potPin = A1; // Potentiometer output connected to analog pin 3
+int potVal = 0;
+
+const int echoPin = 13; // Arduino digital input pin
+byte temperature = 19;
+
+
+LiquidCrystal lcd(10, 9, 8, 7, 6 , 5);//Parameters: (rs, enable(E), d4, d5, d6, d7)
+
+void setup() {
+
+// set up the LCD's number of columns and rows:
+
+lcd.begin(16, 2);
+
+pinMode(pingPin, OUTPUT); // ping pin is connected to Arduino output
+
+pinMode(echoPin, INPUT); // echo pin
+
+Serial.begin(9600);
+
+// Print a message to the LCD.
+
+lcd.print("hello, world!");
+
+}
+
+void loop() {
+
+// set the cursor to column 0, line 0
+
+lcd.setCursor(0, 0);
+
+digitalWrite(pingPin, LOW);
+
+delayMicroseconds(2);
+
+digitalWrite(pingPin, HIGH);
+
+delayMicroseconds(10);
+
+digitalWrite(pingPin, LOW);
+
+duration = pulseIn(echoPin, HIGH);
+
+// convert the time into a distance
+
+inches = microsecondsToInches(duration);
+
+cm = microsecondsToCentimeters(duration);
+Serial.println(inches);
+
+potVal = analogRead(potPin);
+ if (potVal < 341)  // Lowest third of the potentiometer's range (0-340)
+  {
+    lcd.setCursor(0, 0);    
+  lcd.print("Distance: ");
+  lcd.print(inches);
+  lcd.print(" in   ");                
+delay(5);
+lcd.setCursor(0,1);
+lcd.print("Delay: 5ms    ");
+  }
+  else if (potVal < 682) // Middle third of potentiometer's range (341-681)
+  {
+delay(50);
+    lcd.setCursor(0, 0);    
+  lcd.print("Distance: ");
+  lcd.print(inches);
+  lcd.print(" in   ");    
+lcd.setCursor(0,1);
+lcd.print("Delay: 50ms     ");
+  }
+  else  // Upper third of potentiometer"s range (682-1023)
+  {
+delay(500);
+    lcd.setCursor(0, 0);    
+  lcd.print("Distance: ");
+  lcd.print(inches);
+  lcd.print(" in   ");    
+lcd.setCursor(0,1);
+lcd.print("Delay: 500ms    ");
+  }
+
+
+
+}
+
+long microsecondsToInches(long microseconds) {
+
+// According to Parallax's datasheet for the PING))), there are 73.746
+
+// microseconds per inch (i.e., sound travels at 1130 feet per second).
+
+// The time returned by the function is for the distance travelled by the ping,
+
+// outbound and return, so we divide by 2
+
+// See: http://www.parallax.com/dl/docs/prod/acc/28015-PING-v1.3.pdf
+
+return microseconds / 74 / 2;
+
+}
+
+long microsecondsToCentimeters(long microseconds) {
+
+// The speed of sound is 340 m/s or 29 microseconds per centimeter.
+
+// The ping travels out and back, so to find the distance of the object we
+
+// take half of the distance travelled.
+
+return microseconds / 29 / 2;
+
+}
